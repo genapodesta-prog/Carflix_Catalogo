@@ -112,6 +112,8 @@
   .seals{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
   .seal{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:var(--black);font-size:12px;font-weight:600;padding:5px 10px 5px 7px;border-radius:999px;line-height:1.2}
   .seal svg{width:16px;height:16px;flex:none}
+  .gp-sm{width:18px;height:18px;border-radius:50%;object-fit:cover;flex:none;background:#fff}
+  .gp-lg{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;background:#fff}
   .seal-box{display:grid;gap:10px;margin:16px 0 0}
   .seal-card{display:flex;gap:12px;align-items:center;background:var(--blue);color:var(--black);border-radius:14px;padding:12px 14px}
   .seal-card svg{width:30px;height:30px;flex:none}
@@ -193,17 +195,19 @@ const ICON_SHIELD = '<svg viewBox="0 0 24 24" fill="none" stroke="#091117" strok
 const ICON_4X4 = '<svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 19 6-10 4 6 2.5-3.5 6.5 7.5Z"/><circle cx="17" cy="6" r="2"/></svg>';
 // Garantía: vacío o NO = sin sello; SI = sello; cualquier otro texto (ej. "6 meses") = sello con ese detalle
 function garantia(c){ const v=(c.garantia||'').trim(); if(!v||norm(v)==='no') return null; return norm(v)==='si' ? '' : v; }
-const gost = c => norm(c['verificado gost power'])==='si';
+const gost = c => norm(c['verificado ghost power'] || c['verificado gost power'])==='si';
+// Logo de Ghost Power: si existe ghostpower.png en el sitio se usa como sello; si no, se muestra el ícono
+const GP = cls => `<img class="${cls}" src="ghostpower.png" alt="Ghost Power 4x4" onerror="this.outerHTML=ICON_4X4">`;
 function sealsSmall(c){
   const g=garantia(c), out=[];
   if(g!==null) out.push(`<span class="seal">${ICON_SHIELD}Garantía mecánica${g?' · '+esc(g):''}</span>`);
-  if(gost(c)) out.push(`<span class="seal">${ICON_4X4}Verificada 4x4 Gost Power</span>`);
+  if(gost(c)) out.push(`<span class="seal">${GP('gp-sm')}Verificada 4x4 Ghost Power</span>`);
   return out.length?`<div class="seals">${out.join('')}</div>`:'';
 }
 function sealsBig(c){
   const g=garantia(c), out=[];
   if(g!==null) out.push(`<div class="seal-card">${ICON_SHIELD}<div><strong>Garantía mecánica</strong><span>${g?esc(g):'Este vehículo tiene garantía mecánica. Consultanos las condiciones.'}</span></div></div>`);
-  if(gost(c)) out.push(`<div class="seal-card">${ICON_4X4}<div><strong>Verificada 4x4 por Gost Power</strong><span>Revisada por nuestros amigos de Gost Power.</span></div></div>`);
+  if(gost(c)) out.push(`<div class="seal-card">${GP('gp-lg')}<div><strong>Verificada 4x4 por Ghost Power</strong><span>Revisada por nuestros amigos de Ghost Power 4x4.</span></div></div>`);
   return out.length?`<div class="seal-box">${out.join('')}</div>`:'';
 }
 
