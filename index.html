@@ -109,6 +109,14 @@
   .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 12px;border-radius:14px;border:0;font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
   .btn.wa{background:var(--black);color:var(--white)}
   .btn.ghost{flex:0 0 auto;background:var(--blue);color:var(--black);padding:15px 16px}
+  .seals{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .seal{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:var(--black);font-size:12px;font-weight:600;padding:5px 10px 5px 7px;border-radius:999px;line-height:1.2}
+  .seal svg{width:16px;height:16px;flex:none}
+  .seal-box{display:grid;gap:10px;margin:16px 0 0}
+  .seal-card{display:flex;gap:12px;align-items:center;background:var(--blue);color:var(--black);border-radius:14px;padding:12px 14px}
+  .seal-card svg{width:30px;height:30px;flex:none}
+  .seal-card strong{display:block;font-size:15px;font-weight:700}
+  .seal-card span{display:block;font-size:13px}
   .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--black);color:var(--white);padding:10px 16px;border-radius:999px;font-size:14px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none}
   .toast.show{opacity:1}
 </style>
@@ -179,6 +187,25 @@ const SHEET_ID = '1PdIxGB5PX1Fex2b5-r0-4YzIx8rso87fpgbsBCvdZ-8';
 const csvUrl = tab => `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&_=${Date.now()}`;
 
 const CAR_SVG = '<svg class="car" viewBox="0 0 120 60" fill="none" stroke="#091117" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 42V34c0-3 2-5 5-6l12-3 14-12c2-2 5-3 8-3h22c3 0 6 1 8 3l13 12 10 2c3 1 5 3 5 6v9"/><path d="M33 44h47M10 44h4M101 44h8"/><circle cx="24" cy="44" r="8"/><circle cx="90" cy="44" r="8"/><path d="M45 25h46"/></svg>';
+
+
+const ICON_SHIELD = '<svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>';
+const ICON_4X4 = '<svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 19 6-10 4 6 2.5-3.5 6.5 7.5Z"/><circle cx="17" cy="6" r="2"/></svg>';
+// Garantía: vacío o NO = sin sello; SI = sello; cualquier otro texto (ej. "6 meses") = sello con ese detalle
+function garantia(c){ const v=(c.garantia||'').trim(); if(!v||norm(v)==='no') return null; return norm(v)==='si' ? '' : v; }
+const gost = c => norm(c['verificado gost power'])==='si';
+function sealsSmall(c){
+  const g=garantia(c), out=[];
+  if(g!==null) out.push(`<span class="seal">${ICON_SHIELD}Garantía mecánica${g?' · '+esc(g):''}</span>`);
+  if(gost(c)) out.push(`<span class="seal">${ICON_4X4}Verificada 4x4 Gost Power</span>`);
+  return out.length?`<div class="seals">${out.join('')}</div>`:'';
+}
+function sealsBig(c){
+  const g=garantia(c), out=[];
+  if(g!==null) out.push(`<div class="seal-card">${ICON_SHIELD}<div><strong>Garantía mecánica</strong><span>${g?esc(g):'Este vehículo tiene garantía mecánica. Consultanos las condiciones.'}</span></div></div>`);
+  if(gost(c)) out.push(`<div class="seal-card">${ICON_4X4}<div><strong>Verificada 4x4 por Gost Power</strong><span>Revisada por nuestros amigos de Gost Power.</span></div></div>`);
+  return out.length?`<div class="seal-box">${out.join('')}</div>`:'';
+}
 
 let CARS = [], CFG = {}, filt = {cond:'', marca:'', q:'', orden:'dest'};
 const $ = s => document.querySelector(s);
@@ -290,6 +317,7 @@ function render(){
         <div class="brand">${esc(c.marca)}</div>
         <div class="name">${esc(title(c))}</div>
         <div class="specs">${esc(specs(c))}</div>
+        ${sealsSmall(c)}
         <div class="price">${money(c)}</div>
       </div></button>`;
   }).join('');
@@ -306,6 +334,7 @@ function open(id){
       <div class="brand">${esc(c.marca)}${norm(c.estado)==='reservado'?' · <span style="color:var(--warn)">Reservado</span>':''}</div>
       <div class="name">${esc(title(c))}</div>
       <div class="price">${money(c)}</div>
+      ${sealsBig(c)}
       <div class="kv">${kv.map(([k,v])=>`<div><span>${k}</span><strong>${esc(v)}</strong></div>`).join('')}</div>
       ${c.descripcion?`<p class="desc">${esc(c.descripcion)}</p>`:''}
       <div class="actions">
