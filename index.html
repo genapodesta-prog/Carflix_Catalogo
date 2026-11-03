@@ -3,7 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>carflix · Tu auto, más simple.</title>
+<title>Carflix | Autos usados y 0km en Mendoza · Tu auto, más simple.</title>
+<link rel="canonical" href="https://carflix-catalogo.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://carflix-catalogo.netlify.app/">
+<meta property="og:image" content="https://carflix-catalogo.netlify.app/icon-512.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoDealer","name":"Carflix","slogan":"Tu auto, más simple.","url":"https://carflix-catalogo.netlify.app/","logo":"https://carflix-catalogo.netlify.app/icon-512.png","areaServed":"Mendoza, Argentina","description":"Agencia de autos en Mendoza: usados y 0km, compramos tu auto, venta en consignación y financiación."}</script>
 <meta name="description" content="Carflix, agencia de autos en Mendoza: usados y 0km, compramos tu auto, consignación y financiación.">
 <meta name="theme-color" content="#00AEEF">
 <link rel="manifest" href="manifest.webmanifest">
@@ -424,7 +429,7 @@ async function load(){
   }
 }
 function applyCfg(){
-  if(CFG.nombre){ document.title = CFG.nombre+' · Tu auto, más simple.'; }
+  
   $('#hdrWa').href = waLink(); wireWa();
   const f=[];
   if(CFG.direccion) f.push(`<span>${esc(CFG.direccion)}</span>`);

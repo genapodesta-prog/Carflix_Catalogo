@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://carflix-catalogo.netlify.app/sitemap.xml
