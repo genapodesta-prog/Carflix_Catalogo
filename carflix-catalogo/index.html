@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carflix · Catálogo</title>
+<meta name="description" content="Catálogo de vehículos 0km y usados de Carflix, Mendoza.">
+<meta name="theme-color" content="#111214">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Carflix">
+<meta property="og:title" content="Carflix · Catálogo">
+<meta property="og:description" content="Mirá nuestros 0km y usados disponibles y consultanos por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f4f2; --surface:#fff; --ink:#111214; --muted:#6b6e74; --line:#e3e3df;
+    --accent:#d71920; --accent-ink:#fff; --ok:#1f8a4c; --warn:#b26a00; --wa:#1fa855;
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom)}
+  button{font:inherit;cursor:pointer}
+  a{color:inherit}
+
+  header{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 0 12px}
+  .bar{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo{font-family:Archivo,sans-serif;font-weight:800;font-size:24px;letter-spacing:-.5px;text-transform:uppercase}
+  .logo b{color:var(--accent)}
+  .hdr-wa{display:inline-flex;align-items:center;gap:6px;background:var(--wa);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+
+  .hero{background:var(--ink);color:#fff;padding:8px 0 22px}
+  .hero-in{max-width:1100px;margin:0 auto;padding:0 16px}
+  .hero h1{font-family:Archivo,sans-serif;font-weight:700;font-size:clamp(26px,6vw,40px);line-height:1.05;margin:6px 0 14px;letter-spacing:-.5px}
+  .search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:12px;padding:0 12px}
+  .search input{flex:1;border:0;outline:0;font:inherit;font-size:16px;padding:13px 0;background:transparent;color:var(--ink)}
+
+  .controls{position:sticky;top:calc(56px + env(safe-area-inset-top));z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+  .controls-in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .controls-in::-webkit-scrollbar{display:none}
+  .chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:999px;font-size:14px;font-weight:500;white-space:nowrap}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  select.chip{appearance:none;padding-right:28px;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 15px) 50%,calc(100% - 10px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+
+  main{max-width:1100px;margin:0 auto;padding:16px}
+  .count{color:var(--muted);font-size:14px;margin:2px 0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  .card{background:var(--surface);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;text-align:left;padding:0;color:inherit;transition:transform .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .ph{position:relative;aspect-ratio:16/10;background:#e9e9e5;display:grid;place-items:center;overflow:hidden}
+  .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .ph svg{width:46%;opacity:.35}
+  .tags{position:absolute;top:10px;left:10px;display:flex;gap:6px}
+  .tag{font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;background:#fff;color:var(--ink)}
+  .tag.new{background:var(--accent);color:#fff}
+  .tag.res{background:var(--warn);color:#fff}
+  .tag.star{background:var(--ink);color:#fff}
+  .body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .brand{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+  .name{font-family:Archivo,sans-serif;font-weight:700;font-size:19px;line-height:1.15}
+  .specs{font-size:13px;color:var(--muted)}
+  .price{margin-top:auto;padding-top:8px;font-family:Archivo,sans-serif;font-weight:800;font-size:22px}
+  .price small{font-size:13px;font-weight:700;color:var(--muted);margin-right:4px}
+
+  .state{text-align:center;color:var(--muted);padding:60px 16px}
+  .skel{height:300px;border-radius:var(--r);background:linear-gradient(90deg,#ececea 25%,#f6f6f4 50%,#ececea 75%);background-size:200% 100%;animation:sh 1.2s infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+
+  footer{max-width:1100px;margin:24px auto 0;padding:24px 16px 40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 18px}
+
+  /* Detalle */
+  .sheet{position:fixed;inset:0;z-index:50;display:none}
+  .sheet.open{display:block}
+  .scrim{position:absolute;inset:0;background:rgba(10,10,12,.55)}
+  .panel{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow:auto;background:var(--surface);border-radius:20px 20px 0 0;animation:up .22s ease-out}
+  @keyframes up{from{transform:translateY(30px);opacity:.4}}
+  @media(min-width:760px){.panel{left:50%;top:50%;bottom:auto;transform:translate(-50%,-50%);width:720px;border-radius:20px;max-height:90vh;animation:none}}
+  .close{position:absolute;top:12px;right:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:20px;line-height:1}
+  .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;background:#e9e9e5;aspect-ratio:16/10}
+  .gal>div{flex:none;width:100%;scroll-snap-align:start;display:grid;place-items:center}
+  .gal img{width:100%;height:100%;object-fit:cover}
+  .gal svg{width:40%;opacity:.35}
+  .dots{display:flex;justify-content:center;gap:6px;margin-top:-22px;position:relative;height:22px}
+  .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.6)}
+  .dots i.on{background:#fff}
+  .det{padding:18px 18px calc(18px + env(safe-area-inset-bottom))}
+  .det .name{font-size:26px}
+  .det .price{font-size:28px;padding-top:4px}
+  .kv{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+  @media(min-width:520px){.kv{grid-template-columns:repeat(3,1fr)}}
+  .kv div{background:var(--bg);border-radius:10px;padding:10px 12px}
+  .kv span{display:block;font-size:12px;color:var(--muted)}
+  .kv strong{font-weight:600;font-size:15px}
+  .desc{line-height:1.5;margin:0 0 18px;white-space:pre-line}
+  .actions{display:flex;gap:10px;position:sticky;bottom:0;background:var(--surface);padding-top:8px}
+  .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:12px;border:0;font-weight:600;font-size:16px;text-decoration:none}
+  .btn.wa{background:var(--wa);color:#fff}
+  .btn.ghost{flex:0 0 auto;background:var(--bg);color:var(--ink);padding:14px 16px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="logo" id="logo">Car<b>flix</b></div>
+    <a class="hdr-wa" id="hdrWa" href="#" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.1Z"/></svg>
+      Consultar
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <h1>Encontrá tu próximo auto</h1>
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6e74" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscá por marca, modelo o año" autocomplete="off">
+    </label>
+  </div>
+</section>
+
+<nav class="controls" aria-label="Filtros">
+  <div class="controls-in">
+    <button class="chip" data-cond="" aria-pressed="true">Todos</button>
+    <button class="chip" data-cond="0km" aria-pressed="false">0km</button>
+    <button class="chip" data-cond="usado" aria-pressed="false">Usados</button>
+    <select class="chip" id="marca" aria-label="Marca"><option value="">Todas las marcas</option></select>
+    <select class="chip" id="orden" aria-label="Ordenar">
+      <option value="dest">Destacados</option>
+      <option value="pasc">Menor precio</option>
+      <option value="pdesc">Mayor precio</option>
+      <option value="anio">Más nuevos</option>
+      <option value="km">Menos km</option>
+    </select>
+  </div>
+</nav>
+
+<main>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid">
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+  </div>
+</main>
+
+<footer id="foot"></footer>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Detalle del vehículo">
+  <div class="scrim" data-close></div>
+  <div class="panel" id="panel"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== CONFIGURACIÓN ======
+   El catálogo lee la planilla "Carflix - Catálogo" de Google Sheets.
+   Pestaña "Vehiculos": un auto por fila. Pestaña "Config": WhatsApp, nombre, etc. */
+const SHEET_ID = '1PdIxGB5PX1Fex2b5-r0-4YzIx8rso87fpgbsBCvdZ-8';
+const csvUrl = tab => `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&_=${Date.now()}`;
+
+const CAR_SVG = '<svg viewBox="0 0 64 32" fill="#111214" aria-hidden="true"><path d="M8 22c0-1 .3-3 2-4l6-1 7-6c1.5-1.3 3-2 5-2h12c2 0 3.5.7 5 2l6 6 5 1c1.5.4 2 1.6 2 3v3c0 1-.8 2-2 2h-3a6 6 0 0 0-11.8 0H22.8A6 6 0 0 0 11 26H9c-.6 0-1-.4-1-1v-3Zm19-10-5 5h12V11h-5c-.8 0-1.4.3-2 1Zm9-1v6h13l-5-5c-.6-.6-1.2-1-2-1h-6ZM17 23a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm30 0a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg>';
+
+let CARS = [], CFG = {}, filt = {cond:'', marca:'', q:'', orden:'dest'};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+const num = s => { const n = parseFloat(String(s ?? '').replace(/[^\d,.-]/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.')); return isNaN(n) ? null : n; };
+
+function parseCSV(t){
+  const rows=[]; let row=[], f='', q=false;
+  for(let i=0;i<t.length;i++){
+    const c=t[i];
+    if(q){ if(c=='"'){ if(t[i+1]=='"'){f+='"';i++} else q=false } else f+=c; }
+    else if(c=='"') q=true;
+    else if(c==','){ row.push(f); f=''; }
+    else if(c=='\n'||c=='\r'){ if(c=='\r'&&t[i+1]=='\n') i++; row.push(f); rows.push(row); row=[]; f=''; }
+    else f+=c;
+  }
+  if(f!==''||row.length){ row.push(f); rows.push(row); }
+  return rows;
+}
+function toObjects(rows){
+  const h = rows[0].map(norm);
+  return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()])));
+}
+// Acepta links de Google Drive ("compartir") y los convierte en imagen directa
+function img(u){
+  u = (u||'').trim(); if(!u) return '';
+  const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/);
+  return m ? `https://lh3.googleusercontent.com/d/${m[1]}=w1200` : u;
+}
+function money(car){
+  const p = num(car.precio); if(p==null) return 'Consultar';
+  const usd = norm(car.moneda)==='usd';
+  return `<small>${usd?'US$':'$'}</small>${p.toLocaleString('es-AR',{maximumFractionDigits:0})}`;
+}
+function moneyText(car){ const p=num(car.precio); return p==null?'':`${norm(car.moneda)==='usd'?'US$':'$'} ${p.toLocaleString('es-AR')}`; }
+const isNew = c => norm(c.condicion).startsWith('0');
+const title = c => [c.modelo, c.version].filter(Boolean).join(' ');
+function specs(c){
+  const km = num(c.km);
+  return [c.ano || c['año'], isNew(c) ? '0 km' : (km!=null ? km.toLocaleString('es-AR')+' km' : ''), c.combustible, c.transmision].filter(Boolean).join(' · ');
+}
+function waLink(c){
+  const n = (CFG.whatsapp||'').replace(/\D/g,'');
+  const base = CFG.mensaje || 'Hola! Quiero consultar por este vehículo:';
+  const txt = c ? `${base}\n${c.marca} ${title(c)} ${c.ano||c['año']||''} — ${moneyText(c)}\n${location.origin+location.pathname}#auto-${c.id}` : 'Hola! Quiero hacer una consulta.';
+  return `https://wa.me/${n}?text=${encodeURIComponent(txt)}`;
+}
+
+async function load(){
+  try{
+    const [vRes, cRes] = await Promise.all([fetch(csvUrl('Vehiculos')), fetch(csvUrl('Config')).catch(()=>null)]);
+    if(!vRes.ok) throw new Error('No se pudo leer la planilla');
+    if(cRes && cRes.ok){ parseCSV(await cRes.text()).slice(1).forEach(r=>{ if(r[0]) CFG[norm(r[0])] = (r[1]||'').trim(); }); }
+    CARS = toObjects(parseCSV(await vRes.text()))
+      .map((c,i)=>({...c, id: String(i+2)}))
+      .filter(c => (c.marca || c.modelo) && norm(c.publicar)!=='no' && norm(c.estado)!=='vendido');
+    applyCfg(); buildMarcas(); render(); openFromHash();
+  }catch(e){
+    $('#grid').innerHTML = `<div class="state" style="grid-column:1/-1">No pudimos cargar el catálogo. Revisá tu conexión e intentá de nuevo.</div>`;
+    console.error(e);
+  }
+}
+function applyCfg(){
+  if(CFG.nombre){ document.title = CFG.nombre+' · Catálogo'; }
+  $('#hdrWa').href = waLink();
+  const f=[];
+  if(CFG.direccion) f.push(`<span>📍 ${esc(CFG.direccion)}</span>`);
+  if(CFG.horario) f.push(`<span>🕘 ${esc(CFG.horario)}</span>`);
+  if(CFG.whatsapp) f.push(`<a href="${waLink()}" target="_blank" rel="noopener">💬 WhatsApp</a>`);
+  if(CFG.instagram) f.push(`<a href="https://instagram.com/${esc(CFG.instagram.replace('@',''))}" target="_blank" rel="noopener">📷 @${esc(CFG.instagram.replace('@',''))}</a>`);
+  f.push(`<span>Precios sujetos a cambios sin previo aviso.</span>`);
+  $('#foot').innerHTML = f.join('');
+}
+function buildMarcas(){
+  const ms=[...new Set(CARS.map(c=>c.marca).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  $('#marca').innerHTML = '<option value="">Todas las marcas</option>'+ms.map(m=>`<option>${esc(m)}</option>`).join('');
+}
+function list(){
+  let r = CARS.filter(c=>{
+    if(filt.cond==='0km' && !isNew(c)) return false;
+    if(filt.cond==='usado' && isNew(c)) return false;
+    if(filt.marca && c.marca!==filt.marca) return false;
+    if(filt.q){ const hay=norm([c.marca,c.modelo,c.version,c.ano,c['año'],c.color,c.combustible].join(' ')); if(!norm(filt.q).split(/\s+/).every(w=>hay.includes(w))) return false; }
+    return true;
+  });
+  const P=c=>num(c.precio)??Infinity, Y=c=>num(c.ano||c['año'])||0, K=c=>isNew(c)?0:(num(c.km)??Infinity);
+  const sorters={
+    dest:(a,b)=>(norm(b.destacado)==='si')-(norm(a.destacado)==='si') || (norm(a.estado)==='reservado')-(norm(b.estado)==='reservado'),
+    pasc:(a,b)=>P(a)-P(b), pdesc:(a,b)=>(num(b.precio)??-1)-(num(a.precio)??-1), anio:(a,b)=>Y(b)-Y(a), km:(a,b)=>K(a)-K(b)
+  };
+  return r.sort(sorters[filt.orden]);
+}
+function tags(c){
+  let t='';
+  if(norm(c.destacado)==='si') t+='<span class="tag star">★ Destacado</span>';
+  t+= isNew(c) ? '<span class="tag new">0km</span>' : '<span class="tag">Usado</span>';
+  if(norm(c.estado)==='reservado') t+='<span class="tag res">Reservado</span>';
+  return `<div class="tags">${t}</div>`;
+}
+function render(){
+  const r=list();
+  $('#count').textContent = r.length===1 ? '1 vehículo' : `${r.length} vehículos`;
+  if(!r.length){ $('#grid').innerHTML='<div class="state" style="grid-column:1/-1">No encontramos vehículos con esos filtros.</div>'; return; }
+  $('#grid').innerHTML = r.map(c=>{
+    const f=img(c.foto1);
+    return `<button class="card" data-id="${c.id}">
+      <div class="ph">${f?`<img src="${esc(f)}" alt="${esc(c.marca+' '+title(c))}" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(CAR_SVG))">`:CAR_SVG}${tags(c)}</div>
+      <div class="body">
+        <div class="brand">${esc(c.marca)}</div>
+        <div class="name">${esc(title(c))}</div>
+        <div class="specs">${esc(specs(c))}</div>
+        <div class="price">${money(c)}</div>
+      </div></button>`;
+  }).join('');
+}
+function open(id){
+  const c=CARS.find(x=>x.id===id); if(!c) return;
+  const fotos=[c.foto1,c.foto2,c.foto3,c.foto4,c.foto5].map(img).filter(Boolean);
+  const kv=[['Año',c.ano||c['año']],['Kilómetros',isNew(c)?'0 km':(num(c.km)!=null?num(c.km).toLocaleString('es-AR')+' km':'')],['Combustible',c.combustible],['Transmisión',c.transmision],['Color',c.color],['Condición',isNew(c)?'0km':'Usado']].filter(x=>x[1]);
+  $('#panel').innerHTML = `
+    <button class="close" data-close aria-label="Cerrar">✕</button>
+    <div class="gal" id="gal">${fotos.length?fotos.map(f=>`<div><img src="${esc(f)}" alt=""></div>`).join(''):`<div>${CAR_SVG}</div>`}</div>
+    ${fotos.length>1?`<div class="dots">${fotos.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>`:''}
+    <div class="det">
+      <div class="brand">${esc(c.marca)}${norm(c.estado)==='reservado'?' · <span style="color:var(--warn)">Reservado</span>':''}</div>
+      <div class="name">${esc(title(c))}</div>
+      <div class="price">${money(c)}</div>
+      <div class="kv">${kv.map(([k,v])=>`<div><span>${k}</span><strong>${esc(v)}</strong></div>`).join('')}</div>
+      ${c.descripcion?`<p class="desc">${esc(c.descripcion)}</p>`:''}
+      <div class="actions">
+        <a class="btn wa" href="${waLink(c)}" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        <button class="btn ghost" id="shareBtn" aria-label="Compartir">Compartir</button>
+      </div>
+    </div>`;
+  $('#sheet').classList.add('open'); document.body.style.overflow='hidden';
+  if(location.hash!=='#auto-'+id) history.replaceState(null,'','#auto-'+id);
+  const g=$('#gal'); if(g && fotos.length>1) g.addEventListener('scroll',()=>{const i=Math.round(g.scrollLeft/g.clientWidth);document.querySelectorAll('.dots i').forEach((d,j)=>d.classList.toggle('on',i===j));});
+  $('#shareBtn').onclick = async ()=>{
+    const url=location.origin+location.pathname+'#auto-'+id, text=`${c.marca} ${title(c)} — ${moneyText(c)}`;
+    try{ if(navigator.share){ await navigator.share({title:text,text,url}); return; } await navigator.clipboard.writeText(url); toast('Link copiado'); }catch(e){}
+  };
+}
+function close(){ $('#sheet').classList.remove('open'); document.body.style.overflow=''; history.replaceState(null,'',location.pathname); }
+function openFromHash(){ const m=location.hash.match(/^#auto-(\d+)/); if(m) open(m[1]); }
+function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1800); }
+
+document.querySelectorAll('[data-cond]').forEach(b=>b.onclick=()=>{ document.querySelectorAll('[data-cond]').forEach(x=>x.setAttribute('aria-pressed',x===b)); filt.cond=b.dataset.cond; render(); });
+$('#marca').onchange=e=>{filt.marca=e.target.value;render();};
+$('#orden').onchange=e=>{filt.orden=e.target.value;render();};
+$('#q').oninput=e=>{filt.q=e.target.value;render();};
+$('#grid').onclick=e=>{const c=e.target.closest('.card'); if(c) open(c.dataset.id);};
+$('#sheet').onclick=e=>{ if(e.target.closest('[data-close]')) close(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+window.addEventListener('hashchange',openFromHash);
+load();
+</script>
+</body>
+</html>
