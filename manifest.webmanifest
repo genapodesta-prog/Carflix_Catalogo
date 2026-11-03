@@ -1,10 +1,10 @@
 {
-  "name": "Carflix · Catálogo",
-  "short_name": "Carflix",
+  "name": "carflix · Tu auto, más simple.",
+  "short_name": "carflix",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f4f2",
-  "theme_color": "#111214",
+  "background_color": "#00AEEF",
+  "theme_color": "#00AEEF",
   "lang": "es-AR",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
