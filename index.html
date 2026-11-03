@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>carflix · Tu auto, más simple.</title>
-<meta name="description" content="Catálogo de vehículos 0km y usados de Carflix, Mendoza.">
+<meta name="description" content="Carflix, agencia de autos en Mendoza: usados y 0km, compramos tu auto, consignación y financiación.">
 <meta name="theme-color" content="#00AEEF">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="carflix">
-<meta property="og:title" content="Carflix · Catálogo">
+<meta property="og:title" content="carflix · Tu auto, más simple.">
 <meta property="og:description" content="Tu auto, más simple. Mirá los autos disponibles y consultanos directo por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
   button{font:inherit;cursor:pointer}
   a{color:inherit}
 
-  header{position:sticky;top:0;z-index:20;background:var(--blue);padding:calc(14px + env(safe-area-inset-top)) 0 10px}
+  header{position:sticky;top:0;z-index:30;background:var(--blue);padding:calc(14px + env(safe-area-inset-top)) 0 10px}
   .bar{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .logo{display:flex;align-items:center;gap:9px;color:var(--black);text-decoration:none}
   .logo svg{width:30px;height:28px;flex:none}
@@ -121,57 +121,207 @@
   .seal-card span{display:block;font-size:13px}
   .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--black);color:var(--white);padding:10px 16px;border-radius:999px;font-size:14px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none}
   .toast.show{opacity:1}
+
+  html{scroll-behavior:smooth;scroll-padding-top:70px}
+  .nav{display:flex;gap:22px}
+  .nav a{color:var(--black);text-decoration:none;font-weight:600;font-size:15px}
+  .nav a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+  .hdr-r{display:flex;align-items:center;gap:10px}
+  .menu{display:none;width:42px;height:42px;border:2px solid var(--black);border-radius:12px;background:transparent;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+  .menu i{display:block;width:18px;height:2.5px;background:var(--black);border-radius:2px}
+  @media(max-width:860px){
+    .nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--blue);flex-direction:column;gap:0;padding:6px 20px 16px;border-bottom:2px solid var(--black)}
+    .nav.open{display:flex}
+    .nav a{padding:12px 0;font-size:17px;border-bottom:1px solid rgba(9,17,23,.15)}
+    .menu{display:flex}
+    .hdr-wa span{display:none}
+    .hdr-wa{padding:10px}
+  }
+  .hero{padding:36px 0 56px}
+  .hero h1{font-size:clamp(40px,10vw,76px);margin-bottom:14px}
+  .hero p{font-size:clamp(16px,2.4vw,20px);margin-bottom:26px}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn-lg{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 22px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:0}
+  .btn-lg.dark{background:var(--black);color:var(--white)}
+  .btn-lg.light{background:var(--white);color:var(--black)}
+  .btn-lg.blue{background:var(--blue);color:var(--black)}
+  .sec{padding:64px 0}
+  .sec.blue{background:var(--blue)}
+  .sec.dark{background:var(--black);color:var(--white)}
+  .sec.cat{padding-bottom:20px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  .sec h2{font-weight:800;font-size:clamp(28px,5vw,40px);letter-spacing:-.8px;line-height:1.1;margin:0 0 10px}
+  .lead{font-size:16px;margin:0 0 28px;max-width:620px;line-height:1.55}
+  .lead.big{font-size:clamp(18px,2.6vw,22px);font-weight:500;max-width:760px}
+  .sec:not(.blue):not(.dark) .lead{color:var(--muted)}
+  .sec#nosotros .lead.big{color:var(--black)}
+  .ico{width:52px;height:52px;border-radius:14px;background:var(--blue);display:grid;place-items:center;margin-bottom:14px}
+  .ico svg{width:28px;height:28px}
+  .ico.inv svg *{stroke:#091117}
+  .svc,.vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .svc article,.vals article{border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column}
+  .svc h3,.vals h3{font-size:19px;font-weight:700;margin:0 0 6px;letter-spacing:-.3px}
+  .svc p,.vals p{margin:0 0 16px;color:var(--muted);font-size:15px;line-height:1.5;flex:1}
+  .vals p{margin:0}
+  .svc a{font-weight:600;color:var(--black);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;text-decoration-color:var(--blue)}
+  .cat .search{border:2px solid var(--black);margin:18px 0 0}
+  .cat .controls{position:sticky;top:calc(64px + env(safe-area-inset-top));background:var(--white);border-bottom:1px solid var(--line);margin-top:12px}
+  .cat .controls-in{padding:12px 20px}
+  .cat .chip{background:var(--white)}
+  .cat .chip[aria-pressed="true"]{background:var(--black);color:var(--white)}
+  .two{display:grid;gap:32px}
+  @media(min-width:860px){.two{grid-template-columns:1fr 1fr;align-items:start}}
+  .checks{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-weight:600}
+  .checks li{display:flex;gap:10px;align-items:center}
+  .checks li::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--black) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat;flex:none}
+  .form{background:var(--white);border-radius:22px;padding:22px;display:grid;gap:14px}
+  .form label{display:grid;gap:6px;font-size:13px;font-weight:600}
+  .form input,.form select,.form textarea{font:inherit;font-size:16px;font-weight:400;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--white);color:var(--black);width:100%}
+  .form input:focus,.form select:focus,.form textarea:focus{outline:0;border-color:var(--blue)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form .btn-lg{width:100%;margin-top:4px}
+  .sec.dark .lead{color:#C9D1D6}
+  .contact-cta{display:grid;gap:18px;align-content:start}
+  .contact-cta .btn-lg{justify-self:start}
+  footer{margin-top:0;border-top:1px solid #1E2A33}
 </style>
 </head>
 <body>
 <header>
   <div class="bar">
-    <a class="logo" href="./" aria-label="carflix"><svg viewBox="0 0 30 28" fill="currentColor" aria-hidden="true"><circle cx="15" cy="7" r="6.5"/><circle cx="7" cy="20.5" r="6.5"/><circle cx="23" cy="20.5" r="6.5"/></svg><span>carflix</span></a>
-    <a class="hdr-wa" id="hdrWa" href="#" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.1Z"/></svg>
-      Consultar
-    </a>
+    <a class="logo" href="#inicio" aria-label="carflix"><svg viewBox="0 0 30 28" fill="currentColor" aria-hidden="true"><circle cx="15" cy="7" r="6.5"/><circle cx="7" cy="20.5" r="6.5"/><circle cx="23" cy="20.5" r="6.5"/></svg><span>carflix</span></a>
+    <nav class="nav" id="nav" aria-label="Secciones">
+      <a href="#autos">Autos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#vender">Vendé tu auto</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="hdr-r">
+      <a class="hdr-wa" id="hdrWa" href="#" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.1Z"/></svg><span>Consultar</span></a>
+      <button class="menu" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
   </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="inicio">
   <div class="hero-in">
     <h1>Tu auto, más simple.</h1>
-    <p>Mirá los autos disponibles y consultanos directo por WhatsApp.</p>
+    <p>Comprá, vendé o financiá tu auto con información clara y trato directo.</p>
+    <div class="cta">
+      <a class="btn-lg dark" href="#autos">Ver autos disponibles</a>
+      <a class="btn-lg light" href="#vender">Quiero vender mi auto</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="servicios">
+  <div class="wrap">
+    <h2>Qué ofrecemos</h2>
+    <p class="lead">Todo lo que necesitás para cambiar de auto, en un solo lugar.</p>
+    <div class="svc">
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16v-3.5c0-.8.5-1.5 1.3-1.7L7 10l2.5-3.2c.4-.5 1-.8 1.6-.8h4.3c.6 0 1.2.3 1.6.8L19.5 10l1 .4c.3.2.5.6.5 1V16"/><path d="M8.5 16h7M3 16h1.5M19.5 16H21"/><circle cx="6.5" cy="16.5" r="2"/><circle cx="17.5" cy="16.5" r="2"/></svg></div><h3>Usados y 0km</h3><p>Autos con todos los datos a la vista: año, kilómetros y precio.</p><a href="#autos">Ver autos</a></article>
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h13"/><path d="m12 7 5 5-5 5"/><path d="M21 4v16"/></svg></div><h3>Compramos tu auto</h3><p>Te hacemos una oferta por tu auto o lo tomamos como parte de pago.</p><a href="#vender">Cotizar mi auto</a></article>
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6-1.4c.3-.3.7-.5 1.2-.5h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.8-2.8l-4.2 3.9"/><path d="m2 15 6 6"/></svg></div><h3>Venta en consignación</h3><p>Nos ocupamos de mostrar y vender tu auto por vos.</p><a href="#vender">Dejar mi auto</a></article>
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></div><h3>Financiación</h3><p>Te contamos qué opciones de financiación hay para el auto que elijas.</p><a href="#" data-wa="Hola! Quiero consultar por opciones de financiación.">Consultar financiación</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec cat" id="autos">
+  <div class="wrap">
+    <h2>Autos disponibles</h2>
     <label class="search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Buscá por marca, modelo o año" autocomplete="off">
     </label>
   </div>
+  <div class="controls" aria-label="Filtros">
+    <div class="controls-in">
+      <button class="chip" data-cond="" aria-pressed="true">Todos</button>
+      <button class="chip" data-cond="0km" aria-pressed="false">0km</button>
+      <button class="chip" data-cond="usado" aria-pressed="false">Usados</button>
+      <select class="chip" id="marca" aria-label="Marca"><option value="">Todas las marcas</option></select>
+      <select class="chip" id="orden" aria-label="Ordenar">
+        <option value="dest">Destacados</option>
+        <option value="pasc">Menor precio</option>
+        <option value="pdesc">Mayor precio</option>
+        <option value="anio">Más nuevos</option>
+        <option value="km">Menos km</option>
+      </select>
+    </div>
+  </div>
+  <main>
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid">
+      <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    </div>
+  </main>
 </section>
 
-<nav class="controls" aria-label="Filtros">
-  <div class="controls-in">
-    <button class="chip" data-cond="" aria-pressed="true">Todos</button>
-    <button class="chip" data-cond="0km" aria-pressed="false">0km</button>
-    <button class="chip" data-cond="usado" aria-pressed="false">Usados</button>
-    <select class="chip" id="marca" aria-label="Marca"><option value="">Todas las marcas</option></select>
-    <select class="chip" id="orden" aria-label="Ordenar">
-      <option value="dest">Destacados</option>
-      <option value="pasc">Menor precio</option>
-      <option value="pdesc">Mayor precio</option>
-      <option value="anio">Más nuevos</option>
-      <option value="km">Menos km</option>
-    </select>
+<section class="sec blue" id="vender">
+  <div class="wrap two">
+    <div>
+      <h2>Vendé tu auto</h2>
+      <p class="lead">Contanos qué auto tenés y te respondemos por WhatsApp con una propuesta.</p>
+      <ul class="checks">
+        <li>Compra directa</li>
+        <li>Parte de pago por otro auto</li>
+        <li>Venta en consignación</li>
+      </ul>
+    </div>
+    <form class="form" id="sellForm">
+      <div class="row2">
+        <label>Marca<input name="marca" required placeholder="Ej. Toyota"></label>
+        <label>Modelo<input name="modelo" required placeholder="Ej. Hilux SRV"></label>
+      </div>
+      <div class="row2">
+        <label>Año<input name="anio" inputmode="numeric" required placeholder="Ej. 2019"></label>
+        <label>Kilómetros<input name="km" inputmode="numeric" placeholder="Ej. 85000"></label>
+      </div>
+      <label>¿Qué te interesa?
+        <select name="tipo">
+          <option>Que me compren el auto</option>
+          <option>Entregarlo como parte de pago</option>
+          <option>Dejarlo en consignación</option>
+          <option>Todavía no sé, quiero asesoramiento</option>
+        </select>
+      </label>
+      <label>Comentarios (opcional)<textarea name="obs" rows="2" placeholder="Estado, services, detalles"></textarea></label>
+      <button class="btn-lg dark" type="submit"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.1Z"/></svg>Enviar por WhatsApp</button>
+    </form>
   </div>
-</nav>
+</section>
 
-<main>
-  <p class="count" id="count"></p>
-  <div class="grid" id="grid">
-    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+<section class="sec" id="nosotros">
+  <div class="wrap">
+    <h2>Quiénes somos</h2>
+    <p class="lead big">Carflix es una agencia de autos de Mendoza. Simplificamos la experiencia de comprar y vender autos con información clara, respaldo y trato directo.</p>
+    <div class="vals">
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div><h3>Información clara</h3><p>Precio, año y kilómetros a la vista. Sin letra chica.</p></article>
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div><h3>Respaldo</h3><p>Los autos con garantía mecánica o verificación 4x4 de Ghost Power lo muestran con su sello.</p></article>
+      <article><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12Z"/></svg></div><h3>Trato directo</h3><p>Hablás con nosotros, sin vueltas. Te respondemos por WhatsApp.</p></article>
+    </div>
   </div>
-</main>
+</section>
+
+<section class="sec dark" id="contacto">
+  <div class="wrap two">
+    <div>
+      <div class="ico inv"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
+      <h2>Atendemos con cita</h2>
+      <p class="lead">Escribinos por WhatsApp y coordinamos un horario para que veas el auto con tranquilidad.</p>
+    </div>
+    <div class="contact-cta">
+      <a class="btn-lg blue" id="contactWa" href="#" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.1 1.1Z"/></svg>Coordinar una visita</a>
+      <div class="foot-info" id="foot"></div>
+    </div>
+  </div>
+</section>
 
 <footer><div class="foot-in">
-  <a class="logo" href="./" aria-label="carflix"><svg viewBox="0 0 30 28" fill="currentColor" aria-hidden="true"><circle cx="15" cy="7" r="6.5"/><circle cx="7" cy="20.5" r="6.5"/><circle cx="23" cy="20.5" r="6.5"/></svg><span>carflix</span></a>
+  <a class="logo" href="#inicio" aria-label="carflix"><svg viewBox="0 0 30 28" fill="currentColor" aria-hidden="true"><circle cx="15" cy="7" r="6.5"/><circle cx="7" cy="20.5" r="6.5"/><circle cx="23" cy="20.5" r="6.5"/></svg><span>carflix</span></a>
   <p class="claim">Tu auto, más simple.</p>
-  <div class="foot-info" id="foot"></div>
   <div class="legal">Precios sujetos a cambios sin previo aviso.</div>
 </div></footer>
 
@@ -275,7 +425,7 @@ async function load(){
 }
 function applyCfg(){
   if(CFG.nombre){ document.title = CFG.nombre+' · Tu auto, más simple.'; }
-  $('#hdrWa').href = waLink();
+  $('#hdrWa').href = waLink(); wireWa();
   const f=[];
   if(CFG.direccion) f.push(`<span>${esc(CFG.direccion)}</span>`);
   if(CFG.horario) f.push(`<span>${esc(CFG.horario)}</span>`);
@@ -354,7 +504,7 @@ function open(id){
     try{ if(navigator.share){ await navigator.share({title:text,text,url}); return; } await navigator.clipboard.writeText(url); toast('Link copiado'); }catch(e){}
   };
 }
-function close(){ $('#sheet').classList.remove('open'); document.body.style.overflow=''; history.replaceState(null,'',location.pathname); }
+function close(){ $('#sheet').classList.remove('open'); document.body.style.overflow=''; if(/^#auto-/.test(location.hash)) history.replaceState(null,'',location.pathname+'#autos'); }
 function openFromHash(){ const m=location.hash.match(/^#auto-(\d+)/); if(m) open(m[1]); }
 function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1800); }
 
@@ -366,6 +516,25 @@ $('#grid').onclick=e=>{const c=e.target.closest('.card'); if(c) open(c.dataset.i
 $('#sheet').onclick=e=>{ if(e.target.closest('[data-close]')) close(); };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
 window.addEventListener('hashchange',openFromHash);
+// Navegación móvil
+const nav=$('#nav'), mb=$('#menuBtn');
+mb.onclick=()=>{ const o=nav.classList.toggle('open'); mb.setAttribute('aria-expanded',o); };
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');mb.setAttribute('aria-expanded',false);}));
+// Links de WhatsApp con mensaje propio
+const waText = t => `https://wa.me/${(CFG.whatsapp||'').replace(/\D/g,'')}?text=${encodeURIComponent(t)}`;
+function wireWa(){
+  document.querySelectorAll('[data-wa]').forEach(a=>{ a.href=waText(a.dataset.wa); a.target='_blank'; a.rel='noopener'; });
+  $('#contactWa').href = waText('Hola! Quiero coordinar una visita para ver un auto.');
+}
+// Formulario "Vendé tu auto" -> WhatsApp
+$('#sellForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=Object.fromEntries(new FormData(e.target).entries());
+  const km=f.km?`, ${f.km} km`:'';
+  const t=`Hola! Quiero vender mi auto.\nAuto: ${f.marca} ${f.modelo} ${f.anio}${km}\nMe interesa: ${f.tipo}${f.obs?`\nComentarios: ${f.obs}`:''}`;
+  window.open(waText(t),'_blank','noopener');
+});
+
 load();
 </script>
 </body>
