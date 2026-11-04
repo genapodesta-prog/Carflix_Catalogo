@@ -189,6 +189,32 @@
   .contact-cta{display:grid;gap:18px;align-content:start}
   .contact-cta .btn-lg{justify-self:start}
   footer{margin-top:0;border-top:1px solid #1E2A33}
+
+  .gplans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:22px}
+  .gplans article{background:var(--blue);border-radius:var(--r);padding:22px}
+  .gplans h3{font-size:20px;font-weight:700;margin:10px 0 6px}
+  .gplans p{margin:0;font-size:15px;line-height:1.5}
+  .pill{display:inline-block;background:var(--black);color:var(--white);font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+  .perks{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
+  .perks li{border:2px solid var(--black);border-radius:14px;padding:7px 14px;font-size:14px;font-weight:600}
+  .cov{gap:16px}
+  .covbox{border:1px solid var(--line);border-radius:var(--r);padding:22px}
+  .covbox h3{margin:0 0 12px;font-size:19px;font-weight:700}
+  .covbox ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:15px;line-height:1.4}
+  .covbox li{display:flex;gap:10px}
+  .covbox li::before{content:"";flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;background:center/12px no-repeat}
+  .covbox.yes li::before{background-color:var(--blue);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23091117' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E")}
+  .covbox.no{background:var(--soft);border-color:var(--soft)}
+  .covbox.no li{color:var(--muted)}
+  .covbox.no li::before{background-color:#D5DBDF;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23091117' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M7 7l10 10M17 7 7 17'/%3E%3C/svg%3E")}
+  @media(min-width:860px){.cov{grid-template-columns:1fr 1fr}}
+  .fine{font-size:13px;color:var(--muted);margin:14px 0 0}
+  .gp{margin-top:40px;display:flex;gap:18px;align-items:flex-start;background:var(--black);color:var(--white);border-radius:var(--r);padding:24px}
+  .gp .ico{flex:none;margin:0}
+  .gp h3{margin:0 0 6px;font-size:20px;font-weight:700}
+  .gp p{margin:0 0 12px;color:#C9D1D6;font-size:15px;line-height:1.5}
+  .gp a{color:var(--blue);font-weight:600}
+  .seal-card .more{color:var(--black);font-weight:600}
 </style>
 </head>
 <body>
@@ -198,6 +224,7 @@
     <nav class="nav" id="nav" aria-label="Secciones">
       <a href="#autos">Autos</a>
       <a href="#servicios">Servicios</a>
+      <a href="#garantia">Garantía</a>
       <a href="#vender">Vendé tu auto</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto">Contacto</a>
@@ -262,6 +289,39 @@
       <div class="skel"></div><div class="skel"></div><div class="skel"></div>
     </div>
   </main>
+</section>
+
+
+<section class="sec" id="garantia">
+  <div class="wrap">
+    <h2>Garantía mecánica</h2>
+    <p class="lead">Los autos con el sello de garantía tienen cobertura ante averías mecánicas: fallas imprevistas de una pieza, no el desgaste normal por uso.</p>
+    <div class="gplans">
+      <article><span class="pill">0km</span><h3>Garantía espejo</h3><p>Extiende la misma cobertura que da la fábrica, sin cambios.</p></article>
+      <article><span class="pill">Usados</span><h3>Garantía para usados</h3><p>Para autos de hasta 10 años y 150.000 km, aunque no tengan los services oficiales al día.</p></article>
+    </div>
+    <ul class="perks">
+      <li>Sin límite de kilometraje</li>
+      <li>Sin límite de reparaciones durante la cobertura</li>
+      <li>Transferible si vendés el auto</li>
+      <li>Incluye híbridos, eléctricos y a GNC</li>
+      <li>Acompañamiento durante toda la reparación</li>
+    </ul>
+    <div class="two cov">
+      <div class="covbox yes"><h3>Qué cubre</h3><ul><li>Motor</li><li>Caja de cambios manual o automática</li><li>Dirección</li><li>Suspensión</li><li>Frenos (bomba, servo y freno de mano eléctrico)</li><li>Sistema eléctrico y electrónico (módulos, ABS, airbag)</li><li>Refrigeración</li><li>Transmisión y diferencial, también 4x4</li><li>Turbo</li><li>Compresor del aire acondicionado</li></ul></div>
+      <div class="covbox no"><h3>Qué no cubre</h3><ul><li>Desgaste natural por uso y kilómetros</li><li>Piezas de mantenimiento: aceite, filtros, bujías, correas, pastillas y discos, embrague, batería, amortiguadores y neumáticos</li><li>Carrocería, vidrios, luces y tapizados</li><li>Golpes, accidentes, agua o mal uso</li><li>Fallas por falta de mantenimiento, modificaciones o daños previos</li></ul></div>
+    </div>
+    <p class="fine">Para mantener la garantía hay que cumplir con el plan de mantenimiento del vehículo. Te pasamos las condiciones completas antes de comprar.</p>
+
+    <div class="gp" id="ghostpower">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#091117" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 19 6-10 4 6 2.5-3.5 6.5 7.5Z"/><circle cx="17" cy="6" r="2"/></svg></div>
+      <div>
+        <h3>Verificación 4x4 con Ghost Power</h3>
+        <p>Las camionetas 4x4 con este sello fueron revisadas por nuestros amigos de Ghost Power 4x4 antes de publicarse.</p>
+        <a href="https://www.instagram.com/ghostpower4x4" target="_blank" rel="noopener">Conocé a Ghost Power 4x4</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="sec blue" id="vender">
@@ -361,8 +421,8 @@ function sealsSmall(c){
 }
 function sealsBig(c){
   const g=garantia(c), out=[];
-  if(g!==null) out.push(`<div class="seal-card">${ICON_SHIELD}<div><strong>Garantía mecánica</strong><span>${g?esc(g):'Este vehículo tiene garantía mecánica. Consultanos las condiciones.'}</span></div></div>`);
-  if(gost(c)) out.push(`<div class="seal-card">${GP('gp-lg')}<div><strong>Verificada 4x4 por Ghost Power</strong><span>Revisada por nuestros amigos de Ghost Power 4x4.</span></div></div>`);
+  if(g!==null) out.push(`<div class="seal-card">${ICON_SHIELD}<div><strong>Garantía mecánica</strong><span>${g?esc(g)+'. ':''}<a class="more" href="#garantia" data-close>Ver qué cubre</a></span></div></div>`);
+  if(gost(c)) out.push(`<div class="seal-card">${GP('gp-lg')}<div><strong>Verificada 4x4 por Ghost Power</strong><span>Revisada por nuestros amigos de Ghost Power 4x4. <a class="more" href="#ghostpower" data-close>Ver más</a></span></div></div>`);
   return out.length?`<div class="seal-box">${out.join('')}</div>`:'';
 }
 
