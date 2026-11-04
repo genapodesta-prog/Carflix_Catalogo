@@ -210,9 +210,10 @@
   .perk strong{font-size:17px;font-weight:800;letter-spacing:-.3px;line-height:1.15}
   .perk span{font-size:14px}
   .sub{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:0 0 16px}
-  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  @media(max-width:599px){.tile{padding:14px 6px;font-size:12.5px}.tile .ti{width:44px;height:44px;border-radius:14px}.tile .ti svg{width:24px;height:24px}}
-  @media(min-width:960px){.tiles{grid-template-columns:repeat(5,1fr)}}
+  .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  @media(min-width:600px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+  @media(max-width:599px){.tile{flex-direction:row;text-align:left;padding:10px;gap:10px;font-size:13.5px}.tile .ti{width:40px;height:40px;border-radius:12px}.tile .ti svg{width:22px;height:22px}}
+  @media(min-width:960px){.tiles{grid-template-columns:repeat(5,minmax(0,1fr))}}
   .tile{border:1px solid var(--line);border-radius:var(--r);padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;font-weight:600;font-size:14px;line-height:1.25;transition:transform .2s,border-color .2s}
   .tile:hover{transform:translateY(-3px);border-color:var(--blue)}
   .nocov{margin-top:22px;border-radius:var(--r);background:var(--soft);padding:0 20px}
