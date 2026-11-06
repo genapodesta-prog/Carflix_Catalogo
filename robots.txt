@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://carflix-catalogo.netlify.app/sitemap.xml
+Sitemap: https://carflix.com.ar/sitemap.xml
